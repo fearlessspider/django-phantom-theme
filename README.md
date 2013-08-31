@@ -16,6 +16,18 @@ Features
 * Basic profile model and views ready to extend
 * Mechanism for opening the original Django admin popup windows with fancybox
 
+Screenshots
+=================
+
+![Alt text][Django Phantom Theme - dashboard]
+[Django Phantom Theme - dashboard]: https://github.com/eggforsale/django-phantom-theme/tree/master/screenshoots/dashboard.png
+
+![Alt text][Django Phantom Theme - password change]
+[Django Phantom Theme - password change]: https://github.com/eggforsale/django-phantom-theme/tree/master/screenshoots/password_change.png
+
+![Alt text][Django Phantom Theme - pagination]
+[Django Phantom Theme - pagination]: https://github.com/eggforsale/django-phantom-theme/tree/master/screenshoots/pagination.png
+
 Authors and Contributors
 ========================
 bespider (@bespider) for EggForSale (@eggforsale) created Django Phantom Theme.
