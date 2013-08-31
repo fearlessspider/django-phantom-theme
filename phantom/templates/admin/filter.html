@@ -1,0 +1,6 @@
+{% load i18n phantom_filters %}<li class="navbar-header">{% filter utfupper %}{% blocktrans with title as filter_title %}{{ filter_title }}{% endblocktrans %}{% endfilter %}</li>
+							<li>
+								<select class="form-control">{% for choice in choices %}
+									<option{% if choice.selected %} selected="selected"{% endif %} data-href="{{ choice.query_string|iriencode }}">{{ choice.display }}</option>{% endfor %}
+								</select>
+							</li>

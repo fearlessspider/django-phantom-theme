@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+    {% blocktrans with user.username as username %}Account &raquo; {{ username }}{% endblocktrans %}{% endblock %}
+
+{% block slider %}
+    <div class="intro-image bg-fabric">
+        &nbsp;
+    </div>
+{% endblock slider %}
+
+{% block content %}
+    <div class="container" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+         xmlns="http://www.w3.org/1999/html">
+        <div class="row add-top">
+            <div class="span12">
+                <h1 class="title">{{ user.username }}</h1>
+            </div>
+        </div>
+        <div class="row add-top">
+            <div class="span12">
+                <h5>{% trans "Change email address" %}</h5>
+                    {% block profile_navigation %}
+                        {% include "mss/includes/profile_navigation.html" %}
+                    {% endblock %}
+
+
+                {% include 'mss/includes/alert_messages.html' %}
+
+                <form action="" enctype="multipart/form-data" method="post" class="form-horizontal">
+                    {% csrf_token %}
+                    
+                        {% for field in form %}
+                            <div class="control-group">
+                                {{ field.errors }}
+                                <label class="control-label" id="id_{{ field.name }}">
+                                {{ field.label }}
+                                </label>
+                                <div class="controls">
+                                {{ field }}
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                        <div class="control-group">
+                            <label class="control-label"></label>
+                            <div class="controls">
+                            <button type="submit" class="btn btn-danger">{% trans "Change email" %}</button>
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

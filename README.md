@@ -19,6 +19,9 @@ Features
 Screenshots
 =================
 
+![Alt text][Django Phantom Theme - login]
+[Django Phantom Theme - login]: https://raw.github.com/eggforsale/django-phantom-theme/master/screenshoots/login.png
+
 ![Alt text][Django Phantom Theme - dashboard]
 [Django Phantom Theme - dashboard]: https://raw.github.com/eggforsale/django-phantom-theme/master/screenshoots/dashboard.png
 

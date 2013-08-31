@@ -1,0 +1,46 @@
+{% load i18n admin_static phantom_tags %}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+	<head>
+		<meta charset="utf-8">
+		<title>{% block title %}{% endblock %}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="{% static "phantom/css/bootstrap.min.css" %}" />
+		<link rel="stylesheet" type="text/css" href="{% static "phantom/css/phantom-theme.css" %}" />
+		<link rel="stylesheet" type="text/css" href="{% static "phantom/css/admin.css" %}" />
+	   	<!--[if IE]>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+		<script src="{% static "phantom/js/bootstrap.min.js" %}"></script>{% block extrahead %}{% endblock %}{% block blockbots %}
+		<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
+	</head>
+	<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}dashboard{% endblock %}"{% block bodyspy %}{% endblock%}>{% block top-bar %}{% if not is_popup %}{% if user.is_active and user.is_staff %}
+		{% admin_top_menu %}{% endif %}{% endif %}{% endblock %}{% block mainbody %}
+		<div id="top-header" class="container main">{% block breadcrumbs %}
+			<ul class="breadcrumb">
+				<li><a href="{% url 'admin:index' %}"><i class="glyphicon glyphicon-home"></i></a> <span class="divider">/</span></li>
+				<li class="active">{% if title %} {{ title }}{% endif %}</li>
+			</ul>{% endblock %}{% block pretitle %}{% endblock %}{% block content_title %}{% if title %}
+			<header class="page-header" id="page-header">
+				<h1>{{ title }}</h1>
+			</header>{% endif %}{% endblock %}{% block object-tools %}{% endblock %}{% block admin-logo %}{% if not is_popup %}
+			{% endif %}{% endblock %}
+		</div>
+		<div class="container">{% if messages %}
+			<ul class="messagelist">{% for message in messages %}
+				<li class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					{{ message }}
+				</li>{% endfor %}
+			</ul>{% endif %}{% block content %}
+			<div class="row show-grid">
+				<div class="col-md-9">{% block main-struct %}
+					{{ content }}{% endblock %}
+				</div>
+				<div class="col-md-3">
+					{% block sidebar %}{% endblock %}
+				</div>
+			</div>{% endblock %}{% block footer %}{% endblock %}
+		</div>{% endblock %}{% block bottomjs %}{% endblock %}
+	</body>
+</html>

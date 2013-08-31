@@ -1,0 +1,117 @@
+import re
+from django import template
+from django.conf import settings
+from django.contrib.admin.util import display_for_field, display_for_value, lookup_field
+from django.core import urlresolvers
+from django.core.exceptions import ObjectDoesNotExist
+from django.db import models
+from django.utils.encoding import force_text
+from django.utils.html import format_html
+from django.utils.safestring import mark_safe
+from django.utils.translation import get_language
+from phantom import admin_site
+
+__author__ = 'fearless'
+
+register = template.Library()
+
+
+@register.inclusion_tag('admin/includes/topmenu.html', takes_context=True)
+def admin_top_menu(context):
+    return {
+        'perms' : context['perms'],
+        'top_menu' : admin_site.top_menu(context['request']),
+        'homeurl' : urlresolvers.reverse('admin:index'),
+        'user' : context['user'],
+        'langs' : context['langs'] if 'langs' in context else [],
+        'default_lang': context['default_lang'] if 'default_lang' in context else None,
+        'clean_url' : context['clean_url'] if 'clean_url' in context else '',
+        'LANGUAGE_CODE' : get_language(),
+        'optionset_labels' : admin_site.get_option_admin_urls()
+    }
+
+
+@register.simple_tag
+def clean_media(media):
+    if hasattr(media, '_js'):
+        media._js = [i for i in media._js if not re.match(
+            r'%sadmin/js/((jquery(\.init)?|collapse|admin/RelatedObjectLookups)(\.min)?\.)js' % settings.STATIC_URL, i)]
+    return media
+
+
+@register.simple_tag
+def phantom_paginator_number(cl,i):
+    """
+    Generates an individual page index link in a paginated list.
+    """
+    if i == '.':
+        return mark_safe('<li class="disabled"><a href="javascript:void(0);">...</a></li>')
+    elif i == cl.page_num:
+        return mark_safe('<li class="active"><a href="javascript:void(0);">%s</a></li>' % str(i+1))
+    else:
+        return '<li><a href="%s"%s>%s</a></li>' % (
+                           cl.get_query_string({25: i}),
+                           mark_safe(' class="end"' if i == cl.paginator.num_pages-1 else ''),
+                           i+1)
+
+
+@register.simple_tag(takes_context=True)
+def get_admin_site_meta(context):
+    context['ADMIN_SITE_NAME'] = getattr(settings, 'ADMIN_SITE_NAME',
+        _('Django Administration'))
+    context['ADMIN_SITE_DESCRIPTION'] = getattr(settings, 'ADMIN_SITE_DESCRIPTION',
+        _('Welcome to the Phantom administration page. Please sign in to manage your website.'))
+    context['ADMIN_DISABLE_APP_INDEX'] = getattr(settings, 'ADMIN_DISABLE_APP_INDEX', False)
+    return ''
+
+
+@register.simple_tag
+def inline_items_for_result(inline, result):
+    """
+    Generates the actual list of data for the inline.
+    """
+    list_display = inline.list_display if inline.list_display else ('__unicode__',)
+    ret = ''
+    for field_name in list_display:
+        row_class =  mark_safe(' class="column"')
+        try:
+            f, attr, value = lookup_field(field_name, result, inline)
+        except ObjectDoesNotExist:
+            result_repr = ''
+        else:
+            if f is None:
+                allow_tags = getattr(attr, 'allow_tags', False)
+                boolean = getattr(attr, 'boolean', False)
+                if boolean:
+                    allow_tags = True
+                result_repr = display_for_value(value, boolean)
+                # Strip HTML tags in the resulting text, except if the
+                # function has an "allow_tags" attribute set to True.
+                if allow_tags:
+                    result_repr = mark_safe(result_repr)
+            else:
+                if isinstance(f.rel, models.ManyToOneRel):
+                    field_val = getattr(result, f.name)
+                    if field_val is None:
+                        result_repr = ''
+                    else:
+                        result_repr = field_val
+                else:
+                    result_repr = display_for_field(value, f)
+        if force_text(result_repr) == '':
+            result_repr = mark_safe('&nbsp;')
+
+        ret += format_html('<span{0}>{1}</span>', row_class, result_repr)
+    return ret
+
+@register.simple_tag
+def phantom_title():
+    return 'Phantom'
+
+@register.simple_tag
+def phantom_description():
+    return 'Phantom'
+
+@register.simple_tag
+def phantom_author():
+    return 'Phantom'

@@ -1,0 +1,14 @@
+{% extends "admin/base_site.html" %}{% load i18n phantom_tags %}
+
+{% block top-bar %}{% endblock %}
+
+{% block mainbody %}
+		<section class="jumbotron">
+			<h1>{% phantom_title %}</h1>
+			<p>{% for lang in langs %}{% get_language_info for lang.name as info %}
+				<a href="{% if not lang.default %}/{{info.code}}{% endif %}{{clean_url}}"><img class="lang-switcher" src="{{lang.image.url}}" alt="{{info.name}}" title="{{info.name}}" /></a>{% endfor %}
+			</p>
+		</section>
+		<section class="col-md-offset-4 col-md-4 col-md-offset-4">
+			{% block content %}{% endblock %}
+		</section>{% endblock %}

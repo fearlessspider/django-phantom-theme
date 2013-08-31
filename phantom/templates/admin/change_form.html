@@ -1,0 +1,90 @@
+{% extends "admin/base_site.html" %}{% load i18n admin_modify admin_static phantom_filters phantom_tags admin_urls %}
+
+{% block bodyspy %}{% if adminform.model_admin.affix and not is_popup %} data-spy="scroll" data-target=".affix-sidebar"{% endif %}{% endblock %}
+
+{% block extrastyle %}{{ block.super }}
+		<link rel="stylesheet" type="text/css" href="{% static "phantom/css/fancybox/jquery.fancybox.css" %}?v=2.1.5" />{% endblock %}
+
+{% block extrahead %}{{ block.super }}{% url 'admin:jsi18n' as jsi18nurl %}
+		<script src="{{ jsi18nurl|default:"../../../jsi18n/" }}"></script>
+		<script src="{% static "phantom/js/jquery.fancybox.pack.js" %}?v=2.1.5"></script>
+		<script src="{% static 'phantom/js/phantom.js' %}"></script>
+		{% clean_media media %}{% endblock %}
+
+{% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form{% endblock %}
+
+{% block inner-title %}{% if add %}{% trans "Add" %}{% else %}{% trans 'Edit' %} < {{original}}{% endif %} < {{ opts.verbose_name_plural|capfirst }}{% endblock %}
+
+{% block content_title %}{% if title %}
+			<header class="page-header" id="page-header">
+				<h1>{% if adminform.model_admin.title_icon %}<i class="{{adminform.model_admin.title_icon}} title-icon"></i>{% endif %}{% if add %}{{ opts.verbose_name_plural|capfirst }}: {% trans 'add' %}{% else %}{% filter truncatechars:50 %}{{original}}{% endfilter %}: {% trans 'edit' %}{% endif %}</h1>
+			</header>{% endif %}{% endblock %}
+
+{% block breadcrumbs %}{% if not is_popup %}
+			<ul class="breadcrumb">
+			    <li><a href="{% url 'admin:index' %}"><i class="glyphicon glyphicon-home"></i></a> <span class="divider">/</span></li>{% if not ADMIN_DISABLE_APP_INDEX %}
+			    <li><a href="{% url 'admin:app_list' app_label=opts.app_label %}">{% with app_title=app_label|app_title|escape %}{{ app_title.title }}{% endwith %}</a> <span class="divider">/</span></li>{% endif %}
+			    <li>{% if has_change_permission %}<a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>{% else %}{{ opts.verbose_name_plural|capfirst }}{% endif %} <span class="divider">/</span></li>
+			    <li class="active">{% if add %}{% trans "Add" %}{% else %}{{ original|truncatewords:"18" }}{% endif %}</li>
+			</ul>{% endif %}{% endblock %}
+
+{% block object-tools %}{% if change and not is_popup %}
+			<div class="row nav">{% block object-tools-items %}
+				<div class="col-md-2">
+					<a href="{% url opts|admin_urlname:'history' original.pk|admin_urlquote %}" class="btn btn-default btn-lg">
+						<i class="database-item"></i> {% trans "History" %}
+					</a>
+				</div>{% if has_absolute_url %}
+				<div class="col-md-2">
+					<a href="{% url 'admin:view_on_site' content_type_id original.pk %}" class="btn btn-default btn-lg">
+						<i class="lookup-item"></i> {% trans "View on site" %}
+					</a>
+				</div>{% endif %}{% endblock %}
+			</div>{% endif %}{% endblock %}
+
+{% block content %}
+			<div id="content-main">{% if adminform.model_admin.affix and not is_popup %}
+				<div class="container">
+				<div class="row">
+					<div class="col-md-3">
+						<div class="affix-sidebar">
+							<ul class="affix-sidenav nav nav-list" id="left-affix">{% for fieldset in adminform %}
+								<li{% if forloop.first %} class="active"{% endif %}>
+									<a href="#{% if fieldset.name %}fieldset-no-{{forloop.counter}}{% else %}page-header{% endif %}">
+										<i class="glyphicon glyphicon-chevron-right"></i> {% if fieldset.name %}{{fieldset.name}}{% else %}{% trans 'General' %}{% endif %}
+									</a>
+								</li>{% endfor %}{% for inline_admin_formset in inline_admin_formsets %}{% if inline_admin_formset and inline_admin_formset.formset|length <= 1 %}{% for inline_admin_form in inline_admin_formset %}{% if not forloop.last %}{% for fieldset in inline_admin_form %}
+								<li>
+									<a href="#{{ inline_admin_formset.formset.prefix }}-fieldsets-{{forloop.counter}}">
+										<i class="glyphicon glyphicon-chevron-right"></i> {{ fieldset.name }}
+									</a>
+								</li>{% endfor %}{% endif %}{% endfor %}{% else %}
+								<li>
+									<a href="#{{ inline_admin_formset.formset.prefix }}-group">
+										<i class="glyphicon glyphicon-chevron-right"></i> {{ inline_admin_formset.opts.verbose_name_plural|capfirst }}
+									</a>
+								</li>{% endif %}{% endfor %}
+							</ul>
+						</div>
+					</div>
+					<script>phantom.jQuery('.affix-sidebar').affix({offset: affix_offset });</script>
+				<div class="col-md-9 affix-main">{% endif %}
+				<form class="form-horizontal" {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form" role="form">
+					{% csrf_token %}{% block form_top %}{% endblock %}{% if save_on_top %}{% submit_row %}{% endif %}
+                            {% if is_popup %}
+                            <input type="hidden" name="_popup" value="1" />{% endif %}{% if errors %}
+                            <div class="alert alert-error">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                {% blocktrans count errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+                                {{ adminform.form.non_field_errors }}
+                            </div>{% endif %}{% for fieldset in adminform %}
+                            {% include "admin/includes/fieldset.html" %}{% endfor %}{% block after_field_sets %}{% endblock %}{% for inline_admin_formset in inline_admin_formsets %}
+                            {% include inline_admin_formset.opts.template %}{% endfor %}{% block after_related_objects %}{% endblock %}
+                            {% submit_row %}{% if adminform and add %}
+                            <script type="text/javascript">document.getElementById("{{ adminform.first_field.id_for_label }}").focus();</script>{% endif %}
+                            {% prepopulated_fields_js %}
+				</form>{% if adminform.model_admin.affix and not is_popup %}
+						</div>
+					</div>
+				</div>{% endif %}
+			</div>{% endblock %}

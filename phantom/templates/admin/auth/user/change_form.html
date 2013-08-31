@@ -1,0 +1,8 @@
+{% extends "admin/change_form.html" %}{% load i18n %}
+
+{% block object-tools-items %}{% if perms.auth.edit_user %}
+				<div class="col-md-2">
+					<a href="{% url 'admin:password_change' %}" class="btn btn-default btn-lg">
+						<i class="configuration-item"></i> {% trans "Password Change" %}
+					</a>
+				</div>{% endif %}{{block.super}}{% endblock %}
