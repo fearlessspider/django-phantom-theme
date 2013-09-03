@@ -12,7 +12,7 @@
 
 {% block content %}
 			<div id="content-main">
-			<form class="form-horizontal form-inline" action="." method="post" id="{{ opts.module_name }}_form">
+			<form class="form-horizontal" action="." method="post" id="{{ opts.module_name }}_form">
 				{% csrf_token %}{% block form_top %}{% endblock %}{% if save_on_top %}
 				<div class="row submits submit-row">
 					<div class="pull-right">
@@ -26,7 +26,9 @@
 						{{ form.non_field_errors }}
 					</span>
 				</div>{% endif %}
-				<fieldset>{% with fieldset=optionset_admin.formfields %}{% include "admin/includes/optionfields.html" %}{% endwith %}{% if optionset_admin.langformfields %}
+				<fieldset>
+                    <div class="fieldset-wrapper">
+                    {% with fieldset=optionset_admin.formfields %}{% include "admin/includes/optionfields.html" %}{% endwith %}{% if optionset_admin.langformfields %}
 					<div id="fieldset-tabs">{% if optionset_admin.langformfields|length > 1 %}
 						<h2>{% trans "Translatable options" %}</h2>
 						<ul id="language-codes" class="nav nav-tabs">{% for fieldsetname, fieldset in optionset_admin.langformfields.items %}
@@ -40,6 +42,7 @@
 							</div>{% endfor %}
 						</div>{% if optionset_admin.langformfields|length > 1 %}
 					</div>{% endif %}{% endif %}
+                    </div>
 				</fieldset>
 				<div class="row submits submit-row">
 					<div class="pull-right">

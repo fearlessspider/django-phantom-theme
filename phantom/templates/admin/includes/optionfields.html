@@ -2,11 +2,11 @@
 					<div class="color-form {% cycle 'row1' 'row2' %}">
 						<div class="field">
 							<div class="form-group control-group{% if not field.is_readonly and field.errors %} error{% endif %}">
-								<label class="col-lg-2 control-label{% if field.field.required %} required{% endif %}" for="{{field.field.auto_id}}">{{ field.field.label }}:{% if field.field.required %} <span class="text-error">*</span>{% endif %}</label>
-								<div class="col-lg-10 controls">{% if field.is_readonly %}
+								<label class="col-xs-4 col-md-2 col-lg-2 control-label{% if field.field.required %} required{% endif %}" for="{{field.field.auto_id}}">{{ field.field.label }}:{% if field.field.required %} <span class="text-error">*</span>{% endif %}</label>
+								<div class="col-xs-8 col-md-10 col-lg-10 controls">{% if field.is_readonly %}
 									<span><i>{{ field.contents }}</i></span>{% else %}
 									{{ field }}{% endif %}{% if field.help_text %}
-									<i class="help icon-question-sign" data-original-title="{{field.field.label}} - {% trans 'help text' %}" data-content="{{ field.field.help_text }}"></i>{% endif %}{% if not field.is_readonly and field.errors %}
+									<i class="help glyphicon glyphicon-question-sign" data-original-title="{{field.field.label}} - {% trans 'help text' %}" data-content="{{ field.field.help_text }}"></i>{% endif %}{% if not field.is_readonly and field.errors %}
 									<span class="help-inline">{{ field.errors }}</span>{% endif %}
 								</div>
 							</div>
