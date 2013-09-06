@@ -52,3 +52,5 @@ Licence and pricing: http://www.eggforsale.com
 Support or Contact
 ==================
 Having trouble with Django Phantom Theme? Check out the detail page at http://www.eggforsale.com or contact support@eggforsale.com and we’ll help you sort it out.
+
+Documentation at http://django-phantom-theme.readthedocs.org/en/latest/
