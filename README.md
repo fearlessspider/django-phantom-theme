@@ -13,13 +13,13 @@ Features
 * Register your applications to the top-bar navigation
 * Refurbished original django admin widgets
 * Added new django admin widgets
-	** AutoCompleteTextInput
-	** BootstrapRadioRenderer
-	** BootstrapCurrencyDecimalWidget
-	** BootstrapPercentageDecimalWidget
-	** URLThumbWidget
-	** Select2MultipleWidget
-	** Select2Widget
+	* AutoCompleteTextInput
+	* BootstrapRadioRenderer
+	* BootstrapCurrencyDecimalWidget
+	* BootstrapPercentageDecimalWidget
+	* URLThumbWidget
+	* Select2MultipleWidget
+	* Select2Widget
 * Basic profile model and views ready to extend
 * Mechanism for opening the original Django admin popup windows with fancybox
 * Zinnia admin index
