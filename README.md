@@ -22,7 +22,7 @@ Features
 	* Select2Widget
 * Basic profile model and views ready to extend
 * Mechanism for opening the original Django admin popup windows with fancybox
-* Zinnia admin index
+* Zinnia Blog admin index
 
 Screenshots
 =================
