@@ -1,0 +1,638 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Welcome to Django Phantom Theme’s documentation! &mdash; Django Phantom Theme 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Django Phantom Theme 1.0 documentation" href="#" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="#">Django Phantom Theme 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="welcome-to-django-phantom-theme-s-documentation">
+<h1>Welcome to Django Phantom Theme&#8217;s documentation!<a class="headerlink" href="#welcome-to-django-phantom-theme-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p>Phantom is an admin theme for Django Framework. It allows for registering custom database options and provides a clean and modern web interface. The application is designed to be responsive and adopt to mobile and tablet devices. To achieve this we have used the twitter bootstrap 3.x framework grid. The application is constantly evolving so make sure you checkout github for the latest updates and fixes.</p>
+<div class="section" id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">A clean and modern user interface</p>
+</li>
+<li><p class="first">Hand-written pure HTML5/CSS3 code with indented HTML output</p>
+</li>
+<li><p class="first">Responsive interface, optimized for mobile phones and tablets</p>
+</li>
+<li><p class="first">Register custom database settings (options) editable from the UI. You can use all standard Django form fields for these settings</p>
+</li>
+<li><p class="first">Register your applications to the top-bar navigation</p>
+</li>
+<li><p class="first">Refurbished original django admin widgets</p>
+</li>
+<li><dl class="first docutils">
+<dt>Added new django admin widgets:</dt>
+<dd><ul class="first last simple">
+<li>AutoCompleteTextInput</li>
+<li>BootstrapRadioRenderer</li>
+<li>BootstrapCurrencyDecimalWidget</li>
+<li>BootstrapPercentageDecimalWidget</li>
+<li>URLThumbWidget</li>
+<li>Select2MultipleWidget</li>
+<li>Select2Widget</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Basic profile model and views ready to extend</p>
+</li>
+<li><p class="first">Mechanism for opening the original Django admin popup windows with fancybox</p>
+</li>
+<li><p class="first">Zinnia Blog admin index</p>
+</li>
+</ul>
+</div>
+<div class="section" id="authors-and-contributors">
+<h2>Authors and Contributors<a class="headerlink" href="#authors-and-contributors" title="Permalink to this headline">¶</a></h2>
+<p>bespider (&#64;bespider) for EggForSale (&#64;eggforsale) created Django Phantom Theme.</p>
+</div>
+<div class="section" id="licence">
+<h2>Licence<a class="headerlink" href="#licence" title="Permalink to this headline">¶</a></h2>
+<p>Django Phantom Theme is licensed under Creative Commons Attribution-NonCommercial 3.0 license.</p>
+<p>Licence and pricing: <a class="reference external" href="http://www.eggforsale.com">http://www.eggforsale.com</a></p>
+</div>
+<div class="section" id="support-or-contact">
+<h2>Support or Contact<a class="headerlink" href="#support-or-contact" title="Permalink to this headline">¶</a></h2>
+<p>Having trouble with Django Phantom Theme? Check out the detail page at <a class="reference external" href="http://www.eggforsale.com">http://www.eggforsale.com</a> or contact <a class="reference external" href="mailto:support&#37;&#52;&#48;eggforsale&#46;com">support<span>&#64;</span>eggforsale<span>&#46;</span>com</a> and we’ll help you sort it out.</p>
+</div>
+</div>
+<div class="section" id="instalation">
+<h1>Instalation<a class="headerlink" href="#instalation" title="Permalink to this headline">¶</a></h1>
+<p>Install Django Phantom Theme from the github repository.:</p>
+<div class="highlight-python"><pre>$ git clone https://github.com/eggforsale/django-phantom-theme
+$ cd django-phantom-theme
+$ python setup.py install</pre>
+</div>
+<p>or just unzip the github package and copy phantom dir to your project.</p>
+<div class="section" id="set-up">
+<h2>Set up<a class="headerlink" href="#set-up" title="Permalink to this headline">¶</a></h2>
+<p>To use the Django Phantom Theme website you first need to include phantom in your INSTALLED_APPS setting. You also not need to include django.contrib.admin in INSTALLED_APPS and place it after phantom for Django Phantom Theme to work properly. In settings.py.:</p>
+<div class="highlight-python"><pre>INSTALLED_APPS = (
+    ...
+    'phantom',
+    'django.contrib.admin',
+    ...
+)</pre>
+</div>
+<p>Django Phantom Theme uses the phantom.middleware.PopupMiddleware middleware to replace the standard django admin popups with fancybox. Make sure the middleware is enabled in your MIDDLEWARE_CLASSES setting. In settings.py.:</p>
+<div class="highlight-python"><pre>MIDDLEWARE_CLASSES = (
+    ...
+    'phantom.middleware.PopupMiddleware',
+    ...
+)</pre>
+</div>
+<p>You also need to add ‘django.core.context_processors.request’ to TEMPLATE_CONTEXT_PROCESSORS setting in your Django project settings.py file.:</p>
+<div class="highlight-python"><pre>TEMPLATE_CONTEXT_PROCESSORS = (
+    ...
+    'django.core.context_processors.request',
+    ...
+)</pre>
+</div>
+</div>
+<div class="section" id="register-the-django-phantom-theme-urls">
+<h2>Register the Django Phantom Theme urls<a class="headerlink" href="#register-the-django-phantom-theme-urls" title="Permalink to this headline">¶</a></h2>
+<p>To register the admin site views, use the following (inside your urls.py).:</p>
+<div class="highlight-python"><pre>from phantom import admin_site
+
+admin.autodiscover()
+admin_site._registry.update(admin.site._registry)
+
+patterns = (''
+    url(r'^admin/', include(admin_site.urls)),
+    ...
+)</pre>
+</div>
+<p>You do not need to register the django admin urls as well, the Django Python Theme admin_site extends the original admin class.</p>
+</div>
+<div class="section" id="settings">
+<h2>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h2>
+<p>With Django Phantom Theme you can optionaly disable the app index view (the one that lists an application’s models). Doing so will raise &#8220;Page Not Found&#8221; (404) errors when accessing the application urls and will also hide all corresponding links from breadcrumbs.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ADMIN_DISABLE_APP_INDEX</span> <span class="o">=</span> <span class="bp">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="modeladmin-registration-and-auto-discovery">
+<h2>ModelAdmin registration and auto-discovery<a class="headerlink" href="#modeladmin-registration-and-auto-discovery" title="Permalink to this headline">¶</a></h2>
+<p>Normally, to register your normal ModelAdmin class with Django Phantom Theme you should use phantom.admin_site instead of the original django.contrib.admin.site instance (in admin.py).:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">models</span> <span class="kn">import</span> <span class="n">DemoModel</span>
+<span class="kn">from</span> <span class="nn">phantom</span> <span class="kn">import</span> <span class="n">admin_site</span>
+
+<span class="k">class</span> <span class="nc">DemoAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">admin_site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">DemoModel</span><span class="p">,</span> <span class="n">DemoAdmin</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="top-bar-navigation">
+<h2>Top-bar navigation<a class="headerlink" href="#top-bar-navigation" title="Permalink to this headline">¶</a></h2>
+<p>Django Phantom Theme provides a top navigation bar. If you wish, you can register an application’s admin models along with an accompanying image to the top-bar as follows.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">phantom</span> <span class="kn">import</span> <span class="n">admin_site</span>
+<span class="n">admin_site</span><span class="o">.</span><span class="n">register_top_menu_item</span><span class="p">(</span><span class="s">&#39;sites&#39;</span><span class="p">,</span> <span class="n">icon_class</span><span class="o">=</span><span class="s">&quot;glyphicon-th&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The icon_class argument can be any icon from the ones that ship with bootstrap 3.0.</p>
+<p>The above snippet will register the django.contrib.admin.sites application to the top bar. Note however that if the application you try to register is not yet registered with the admin website, an Exception will be raised. Therefore, a safe place to put this code is in your urls.py module, right after the auto-discovery code. If you want to register the current application, you could use the admin.py module and place the code right after the ModelAdmin registrations.</p>
+<p>Django Phantom Theme provides two custom ModelAdmin attributes to achieve this behavior: order and separator. You can use them like this.:</p>
+<div class="highlight-python"><pre>class DemoOneAdmin(admin.ModelAdmin)
+    ...
+    order = 1
+
+class DemoTwoAdmin(admin.ModelAdmin)
+    ...
+    order = 2
+    separator = True</pre>
+</div>
+<p>The above will place DemoOneAdmin before DemoTwoAdmin. A separator line will also be drawed before the DemoTwoAdmin item.</p>
+<p>If you do not set a custom ModelAdmin order, Django Phantom Theme will use the standard alphabetical order for your models.</p>
+<p>You can exclude a certain model from the top-bar navigation. To do so set the exclude_from_top_menu attribute to True.</p>
+</div>
+<div class="section" id="admin-db-options">
+<h2>Admin db options<a class="headerlink" href="#admin-db-options" title="Permalink to this headline">¶</a></h2>
+<p>You can register sets of custom options that editable from the admin interface.</p>
+<p>Each set of options is defined by extending the phantom.admin_options.OptionSetAdmin class.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">DemoOptions</span><span class="p">(</span><span class="n">OptionSetAdmin</span><span class="p">):</span>
+    <span class="n">optionset_label</span> <span class="o">=</span> <span class="s">&#39;demo-options&#39;</span>
+    <span class="n">verbose_name</span> <span class="o">=</span> <span class="s">&#39;Demo Options&#39;</span>
+
+    <span class="n">option_1</span> <span class="o">=</span> <span class="n">SiteOption</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+            <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">Textarea</span><span class="p">(</span>
+                    <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;class&#39;</span> <span class="p">:</span> <span class="s">&#39;form-control&#39;</span><span class="p">}</span>
+            <span class="p">),</span>
+            <span class="n">required</span><span class="o">=</span><span class="bp">False</span>
+    <span class="p">))</span>
+
+    <span class="n">option_2</span> <span class="o">=</span> <span class="n">SiteOption</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+            <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span>
+                    <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;class&#39;</span> <span class="p">:</span> <span class="s">&#39;form-control&#39;</span><span class="p">}</span>
+            <span class="p">),</span>
+    <span class="p">))</span>
+
+<span class="n">admin_site</span><span class="o">.</span><span class="n">register_options</span><span class="p">(</span><span class="n">DemoOptions</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The optionset_label attribute is the equivalent of the app_label for models. By defining a verbose_name you can explicitly set how you want this option-set label to be displayed.</p>
+<p>Each option is implemented as a member of the OptionSetAdmin sub-class, exactly like you would do in a database model. The options must be of the phantom.admin_options.SiteOption type. The field argument of the SiteOption constructor can refer to any standard django form field class instance.</p>
+</div>
+<div class="section" id="retrieving-option-values">
+<h2>Retrieving option values<a class="headerlink" href="#retrieving-option-values" title="Permalink to this headline">¶</a></h2>
+<p>To retrieve a single option you can use the get_option() method.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">phantom.utils</span> <span class="kn">import</span> <span class="n">get_option</span>
+
+<span class="n">option</span> <span class="o">=</span> <span class="n">get_option</span><span class="p">(</span><span class="s">&#39;demo-options&#39;</span><span class="p">,</span> <span class="s">&#39;option_1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you want to retrieve all options of a single option-set at once use the get_options() method.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">phantom.utils</span> <span class="kn">import</span> <span class="n">get_options</span>
+
+<span class="n">options</span> <span class="o">=</span> <span class="n">get_options</span><span class="p">(</span><span class="s">&#39;demo-options&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="admin-inline-customizations">
+<h1>Admin inline customizations<a class="headerlink" href="#admin-inline-customizations" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="collapsing-inlines">
+<h2>Collapsing inlines<a class="headerlink" href="#collapsing-inlines" title="Permalink to this headline">¶</a></h2>
+<p>With Django Phantom Theme you can collapse your inlines, like you do with your fieldsets. Collapsing an admin inline is easy and works for both stacked and tabular inlines.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">DemoInline</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">StackedInline</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="n">collapse</span> <span class="o">=</span> <span class="bp">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="modal-inlines">
+<h2>Modal inlines<a class="headerlink" href="#modal-inlines" title="Permalink to this headline">¶</a></h2>
+<p>Another nice option is the inline modal functionality. It can be really useful when you have a lot of fields in your inline model. Add modal=True to the StackedInline class and your inline form will open in a popup-style modal window.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">DemoInline</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">StackedInline</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="n">modal</span> <span class="o">=</span> <span class="bp">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="side-navigation-for-change-forms">
+<h2>Side navigation for change forms<a class="headerlink" href="#side-navigation-for-change-forms" title="Permalink to this headline">¶</a></h2>
+<p>You can optionally enable a left menu navigation for your change form pages on any model. This will automatically list and track all fieldsets and inlines set in the ModelAdmin.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">DemoModelAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="n">fieldsets</span> <span class="o">=</span> <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+    <span class="n">inlines</span> <span class="o">=</span> <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+    <span class="n">affix</span><span class="o">=</span><span class="bp">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sortable-changelists">
+<h2>Sortable changelists<a class="headerlink" href="#sortable-changelists" title="Permalink to this headline">¶</a></h2>
+<p>You can enable a &#8220;sorting mode&#8221; in the changelist view for orderable objects by subclassing phantom.admin.SortableModelAdmin instead of admin.ModelAdmin.</p>
+<p>By default Django Phantom Theme expects the ordering model field to be named &#8220;order&#8221; (it must be an IntegerField). If the name is different you need to set the &#8220;sorting_order_field&#8221; attribute.</p>
+<p>If you use django-mptt for nested categories, you can enable nested ordering like so.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">CategoryAdmin</span><span class="p">(</span><span class="n">SortableModelAdmin</span><span class="p">):</span>
+    <span class="n">sortable_mptt</span> <span class="o">=</span> <span class="bp">True</span>
+</pre></div>
+</div>
+<p>The sorting mechanism assumes items are orderd by the ordering field in the default queryset. If that&#8217;s not true, you should override the &#8220;sortables_ordered&#8221; method to provide a proper default ordering.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">CategoryAdmin</span><span class="p">(</span><span class="n">SortableModelAdmin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">sortables_ordered</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queryset</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">queryset</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s">&quot;order&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="model-icons">
+<h2>Model icons<a class="headerlink" href="#model-icons" title="Permalink to this headline">¶</a></h2>
+<p>You can set an accompanying icon class for each of your models in the ModelAdmin class.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">DemoModelAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+    <span class="o">....</span>
+    <span class="n">title_icon</span> <span class="o">=</span> <span class="s">&#39;glyphicon-cog&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="base-user-profile">
+<h2>Base user profile<a class="headerlink" href="#base-user-profile" title="Permalink to this headline">¶</a></h2>
+<p>Django Phantom Theme comes with a base profile fo user model.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">AUTH_PROFILE_MODULE</span> <span class="o">=</span> <span class="s">&quot;phantom.Profile&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="settings-view-in-model-admin">
+<h2>Settings view in model admin<a class="headerlink" href="#settings-view-in-model-admin" title="Permalink to this headline">¶</a></h2>
+<p>You can add settings view to model admin similar to this one and new button will appear.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">settings_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form_url</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">app_label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">module_name</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">YoutubeSettingsForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">Settings</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">site__exact</span> <span class="o">=</span> <span class="n">current_site_id</span><span class="p">())</span>
+        <span class="k">except</span> <span class="n">Settings</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+            <span class="n">form</span> <span class="o">=</span> <span class="n">YoutubeSettingsForm</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">form</span> <span class="o">=</span> <span class="n">YoutubeSettingsForm</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">obj</span><span class="p">)</span>
+
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s">&#39;Settings&#39;</span><span class="p">),</span>
+        <span class="s">&#39;media&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">media</span><span class="p">,</span>
+        <span class="s">&#39;form&#39;</span> <span class="p">:</span> <span class="n">form</span><span class="p">,</span>
+        <span class="s">&#39;app_label&#39;</span><span class="p">:</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span>
+        <span class="s">&quot;admin/youutube/settings_form.html&quot;</span><span class="p">,</span>
+        <span class="n">context</span><span class="p">,</span>
+        <span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_urls</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">patterns</span><span class="p">,</span> <span class="n">url</span>
+
+    <span class="k">def</span> <span class="nf">wrap</span><span class="p">(</span><span class="n">view</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">admin_site</span><span class="o">.</span><span class="n">admin_view</span><span class="p">(</span><span class="n">view</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">update_wrapper</span><span class="p">(</span><span class="n">wrapper</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
+
+    <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">app_label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">module_name</span>
+
+    <span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span>
+        <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^settings/$&#39;</span><span class="p">,</span>
+            <span class="n">wrap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings_view</span><span class="p">),</span>
+            <span class="n">name</span><span class="o">=</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">_</span><span class="si">%s</span><span class="s">_settings&#39;</span> <span class="o">%</span> <span class="n">info</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">urlpatterns</span> <span class="o">+</span> <span class="nb">super</span><span class="p">(</span><span class="n">VideoAdmin</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_urls</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="sample-settings">
+<h1>Sample settings<a class="headerlink" href="#sample-settings" title="Permalink to this headline">¶</a></h1>
+<p>Django settings.py for demo project.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEBUG</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">TEMPLATE_DEBUG</span> <span class="o">=</span> <span class="n">DEBUG</span>
+
+<span class="n">ADMINS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="c"># (&#39;Your Name&#39;, &#39;your_email@example.com&#39;),</span>
+<span class="p">)</span>
+
+<span class="n">MANAGERS</span> <span class="o">=</span> <span class="n">ADMINS</span>
+
+<span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s">&#39;django.db.backends.sqlite3&#39;</span><span class="p">,</span> <span class="c"># Add &#39;postgresql_psycopg2&#39;, &#39;mysql&#39;, &#39;sqlite3&#39; or &#39;oracle&#39;.</span>
+        <span class="s">&#39;NAME&#39;</span><span class="p">:</span> <span class="s">&#39;dev&#39;</span><span class="p">,</span>                      <span class="c"># Or path to database file if using sqlite3.</span>
+        <span class="c"># The following settings are not used with sqlite3:</span>
+        <span class="s">&#39;USER&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;</span><span class="p">,</span>
+        <span class="s">&#39;PASSWORD&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;</span><span class="p">,</span>
+        <span class="s">&#39;HOST&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;</span><span class="p">,</span>                      <span class="c"># Empty for localhost through domain sockets or &#39;127.0.0.1&#39; for localhost through TCP.</span>
+        <span class="s">&#39;PORT&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;</span><span class="p">,</span>                      <span class="c"># Set to empty string for default.</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c"># Hosts/domain names that are valid for this site; required if DEBUG is False</span>
+<span class="c"># See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts</span>
+<span class="n">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c"># Local time zone for this installation. Choices can be found here:</span>
+<span class="c"># http://en.wikipedia.org/wiki/List_of_tz_zones_by_name</span>
+<span class="c"># although not all choices may be available on all operating systems.</span>
+<span class="c"># In a Windows environment this must be set to your system time zone.</span>
+<span class="n">TIME_ZONE</span> <span class="o">=</span> <span class="s">&#39;America/Chicago&#39;</span>
+
+<span class="c"># Language code for this installation. All choices can be found here:</span>
+<span class="c"># http://www.i18nguy.com/unicode/language-identifiers.html</span>
+<span class="n">LANGUAGE_CODE</span> <span class="o">=</span> <span class="s">&#39;en-us&#39;</span>
+
+<span class="n">SITE_ID</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c"># If you set this to False, Django will make some optimizations so as not</span>
+<span class="c"># to load the internationalization machinery.</span>
+<span class="n">USE_I18N</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="c"># If you set this to False, Django will not format dates, numbers and</span>
+<span class="c"># calendars according to the current locale.</span>
+<span class="n">USE_L10N</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="c"># If you set this to False, Django will not use timezone-aware datetimes.</span>
+<span class="n">USE_TZ</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="c"># Absolute filesystem path to the directory that will hold user-uploaded files.</span>
+<span class="c"># Example: &quot;/var/www/example.com/media/&quot;</span>
+<span class="n">MEDIA_ROOT</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+
+<span class="c"># URL that handles the media served from MEDIA_ROOT. Make sure to use a</span>
+<span class="c"># trailing slash.</span>
+<span class="c"># Examples: &quot;http://example.com/media/&quot;, &quot;http://media.example.com/&quot;</span>
+<span class="n">MEDIA_URL</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+
+<span class="c"># Absolute path to the directory static files should be collected to.</span>
+<span class="c"># Don&#39;t put anything in this directory yourself; store your static files</span>
+<span class="c"># in apps&#39; &quot;static/&quot; subdirectories and in STATICFILES_DIRS.</span>
+<span class="c"># Example: &quot;/var/www/example.com/static/&quot;</span>
+<span class="n">STATIC_ROOT</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+
+<span class="c"># URL prefix for static files.</span>
+<span class="c"># Example: &quot;http://example.com/static/&quot;, &quot;http://static.example.com/&quot;</span>
+<span class="n">STATIC_URL</span> <span class="o">=</span> <span class="s">&#39;/static/&#39;</span>
+
+<span class="c"># Additional locations of static files</span>
+<span class="n">STATICFILES_DIRS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="c"># Put strings here, like &quot;/home/html/static&quot; or &quot;C:/www/django/static&quot;.</span>
+    <span class="c"># Always use forward slashes, even on Windows.</span>
+    <span class="c"># Don&#39;t forget to use absolute paths, not relative paths.</span>
+<span class="p">)</span>
+
+<span class="c"># List of finder classes that know how to find static files in</span>
+<span class="c"># various locations.</span>
+<span class="n">STATICFILES_FINDERS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s">&#39;django.contrib.staticfiles.finders.FileSystemFinder&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.staticfiles.finders.AppDirectoriesFinder&#39;</span><span class="p">,</span>
+<span class="c">#    &#39;django.contrib.staticfiles.finders.DefaultStorageFinder&#39;,</span>
+<span class="p">)</span>
+
+<span class="c"># Make this unique, and don&#39;t share it with anybody.</span>
+<span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="s">&#39;...&#39;</span>
+
+<span class="c"># List of callables that know how to import templates from various sources.</span>
+<span class="n">TEMPLATE_LOADERS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s">&#39;django.template.loaders.filesystem.Loader&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.template.loaders.app_directories.Loader&#39;</span><span class="p">,</span>
+<span class="c">#     &#39;django.template.loaders.eggs.Loader&#39;,</span>
+<span class="p">)</span>
+
+<span class="n">MIDDLEWARE_CLASSES</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s">&#39;django.middleware.common.CommonMiddleware&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.sessions.middleware.SessionMiddleware&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.middleware.csrf.CsrfViewMiddleware&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.auth.middleware.AuthenticationMiddleware&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.messages.middleware.MessageMiddleware&#39;</span><span class="p">,</span>
+    <span class="c"># Uncomment the next line for simple clickjacking protection:</span>
+    <span class="c"># &#39;django.middleware.clickjacking.XFrameOptionsMiddleware&#39;,</span>
+    <span class="s">&#39;phantom.middleware.PopupMiddleware&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">ROOT_URLCONF</span> <span class="o">=</span> <span class="s">&#39;demo.urls&#39;</span>
+
+<span class="c"># Python dotted path to the WSGI application used by Django&#39;s runserver.</span>
+<span class="n">WSGI_APPLICATION</span> <span class="o">=</span> <span class="s">&#39;demo.wsgi.application&#39;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">TEMPLATE_DIRS</span> <span class="o">=</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="s">&#39;..&#39;</span><span class="p">,</span> <span class="s">&#39;templates&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\\</span><span class="s">&#39;</span><span class="p">,</span><span class="s">&#39;/&#39;</span><span class="p">),)</span>
+
+<span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s">&#39;django.contrib.auth&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.contenttypes&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.sessions&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.sites&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.messages&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.staticfiles&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.comments&#39;</span><span class="p">,</span>
+    <span class="c"># Uncomment the next line to enable the admin:</span>
+    <span class="s">&#39;phantom&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.admin&#39;</span><span class="p">,</span>
+    <span class="s">&#39;mptt&#39;</span><span class="p">,</span>
+    <span class="s">&#39;tagging&#39;</span><span class="p">,</span>
+    <span class="s">&#39;zinnia&#39;</span><span class="p">,</span>
+    <span class="c"># Uncomment the next line to enable admin documentation:</span>
+    <span class="c"># &#39;django.contrib.admindocs&#39;,</span>
+    <span class="s">&#39;demonstration&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c"># A sample logging configuration. The only tangible logging</span>
+<span class="c"># performed by this configuration is to send an email to</span>
+<span class="c"># the site admins on every HTTP 500 error when DEBUG=False.</span>
+<span class="c"># See http://docs.djangoproject.com/en/dev/topics/logging for</span>
+<span class="c"># more details on how to customize your logging configuration.</span>
+<span class="n">LOGGING</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;version&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s">&#39;disable_existing_loggers&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+    <span class="s">&#39;filters&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;require_debug_false&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">&#39;()&#39;</span><span class="p">:</span> <span class="s">&#39;django.utils.log.RequireDebugFalse&#39;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;mail_admins&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">&#39;level&#39;</span><span class="p">:</span> <span class="s">&#39;ERROR&#39;</span><span class="p">,</span>
+            <span class="s">&#39;filters&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;require_debug_false&#39;</span><span class="p">],</span>
+            <span class="s">&#39;class&#39;</span><span class="p">:</span> <span class="s">&#39;django.utils.log.AdminEmailHandler&#39;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s">&#39;loggers&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;django.request&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;mail_admins&#39;</span><span class="p">],</span>
+            <span class="s">&#39;level&#39;</span><span class="p">:</span> <span class="s">&#39;ERROR&#39;</span><span class="p">,</span>
+            <span class="s">&#39;propagate&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">TEMPLATE_CONTEXT_PROCESSORS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s">&quot;django.contrib.auth.context_processors.auth&quot;</span><span class="p">,</span>
+    <span class="s">&quot;django.core.context_processors.debug&quot;</span><span class="p">,</span>
+    <span class="s">&quot;django.core.context_processors.i18n&quot;</span><span class="p">,</span>
+    <span class="s">&quot;django.core.context_processors.media&quot;</span><span class="p">,</span>
+    <span class="s">&quot;django.core.context_processors.static&quot;</span><span class="p">,</span>
+    <span class="s">&quot;django.contrib.messages.context_processors.messages&quot;</span><span class="p">,</span>
+    <span class="s">&quot;django.core.context_processors.request&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">AUTH_PROFILE_MODULE</span> <span class="o">=</span> <span class="s">&quot;phantom.Profile&quot;</span>
+</pre></div>
+</div>
+<p>Django urls.py for Demo project.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">patterns</span><span class="p">,</span> <span class="n">include</span><span class="p">,</span> <span class="n">url</span>
+
+<span class="c"># Uncomment the next two lines to enable the admin:</span>
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">phantom</span> <span class="kn">import</span> <span class="n">admin_site</span>
+
+<span class="n">admin</span><span class="o">.</span><span class="n">autodiscover</span><span class="p">()</span>
+<span class="n">admin_site</span><span class="o">.</span><span class="n">_registry</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">_registry</span><span class="p">)</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span>
+    <span class="c"># Examples:</span>
+    <span class="c"># url(r&#39;^$&#39;, &#39;demo.views.home&#39;, name=&#39;home&#39;),</span>
+    <span class="c"># url(r&#39;^demo/&#39;, include(&#39;demo.foo.urls&#39;)),</span>
+    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^blog/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">&#39;zinnia.urls&#39;</span><span class="p">)),</span>
+    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^comments/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">&#39;django.contrib.comments.urls&#39;</span><span class="p">)),</span>
+
+    <span class="c"># Uncomment the admin/doc line below to enable admin documentation:</span>
+    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^admin/doc/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">&#39;django.contrib.admindocs.urls&#39;</span><span class="p">)),</span>
+
+    <span class="c"># Uncomment the next line to enable the admin:</span>
+    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^admin/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">admin_site</span><span class="o">.</span><span class="n">urls</span><span class="p">)),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="templates-for-popular-django-applications">
+<h1>Templates for popular django applications<a class="headerlink" href="#templates-for-popular-django-applications" title="Permalink to this headline">¶</a></h1>
+<p>Django Phantom Theme comes with templates for the following popular django applications:</p>
+<ul class="simple">
+<li>Django Zinnia Blog <a class="reference external" href="http://django-blog-zinnia.com">http://django-blog-zinnia.com</a></li>
+<li>Django MPTT <a class="reference external" href="https://github.com/django-mptt/django-mptt">https://github.com/django-mptt/django-mptt</a></li>
+<li>Sites n-gine <a class="reference external" href="http://djangostdio.com">http://djangostdio.com</a></li>
+</ul>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Welcome to Django Phantom Theme&#8217;s documentation!</a><ul>
+<li><a class="reference internal" href="#features">Features</a></li>
+<li><a class="reference internal" href="#authors-and-contributors">Authors and Contributors</a></li>
+<li><a class="reference internal" href="#licence">Licence</a></li>
+<li><a class="reference internal" href="#support-or-contact">Support or Contact</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#instalation">Instalation</a><ul>
+<li><a class="reference internal" href="#set-up">Set up</a></li>
+<li><a class="reference internal" href="#register-the-django-phantom-theme-urls">Register the Django Phantom Theme urls</a></li>
+<li><a class="reference internal" href="#settings">Settings</a></li>
+<li><a class="reference internal" href="#modeladmin-registration-and-auto-discovery">ModelAdmin registration and auto-discovery</a></li>
+<li><a class="reference internal" href="#top-bar-navigation">Top-bar navigation</a></li>
+<li><a class="reference internal" href="#admin-db-options">Admin db options</a></li>
+<li><a class="reference internal" href="#retrieving-option-values">Retrieving option values</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#admin-inline-customizations">Admin inline customizations</a><ul>
+<li><a class="reference internal" href="#collapsing-inlines">Collapsing inlines</a></li>
+<li><a class="reference internal" href="#modal-inlines">Modal inlines</a></li>
+<li><a class="reference internal" href="#side-navigation-for-change-forms">Side navigation for change forms</a></li>
+<li><a class="reference internal" href="#sortable-changelists">Sortable changelists</a></li>
+<li><a class="reference internal" href="#model-icons">Model icons</a></li>
+<li><a class="reference internal" href="#base-user-profile">Base user profile</a></li>
+<li><a class="reference internal" href="#settings-view-in-model-admin">Settings view in model admin</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sample-settings">Sample settings</a></li>
+<li><a class="reference internal" href="#templates-for-popular-django-applications">Templates for popular django applications</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="#">Django Phantom Theme 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Przemyslaw &#39;bespider&#39; Pajak for EggForSale.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>
