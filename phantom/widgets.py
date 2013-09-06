@@ -80,6 +80,18 @@ class BootstrapPercentageDecimalWidget(TextInput):
         ) % {'field': field, 'data': '%'})
 
 
+class URLThumbWidget(TextInput):
+    def render(self, name, value, attrs=None):
+        u"""Render base widget and add bootstrap spans"""
+        field = super(URLThumbWidget, self).render(name, value, attrs)
+        return mark_safe((
+            u'<div class="input-group">'
+            u'    <span class="input-group-addon"><img src="%(data)s"></span>'
+            u'%(field)s'
+            u'</div>'
+        ) % {'field': field, 'data': value})
+
+
 class Select2MultipleWidget(SelectMultiple):
 
     class Media:

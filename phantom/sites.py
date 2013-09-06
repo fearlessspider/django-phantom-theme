@@ -128,6 +128,10 @@ class PhantomAdminDashboard(object):
                             model_dict['add_url'] = reverse('admin:%s_%s_add' % info, current_app=self.name)
                         except NoReverseMatch:
                             pass
+                    try:
+                        model_dict['settings_url'] = reverse('admin:%s_%s_settings' % info, current_app=self.name)
+                    except NoReverseMatch:
+                        pass
                     self._check_app_dict(app_label, has_module_perms)
                     if not 'exclude' in self.app_dict[app_label] or \
                         model_dict['classname'] not in self.app_dict[app_label]['exclude']:

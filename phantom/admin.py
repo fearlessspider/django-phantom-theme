@@ -248,7 +248,7 @@ class OneToOneInline(admin.StackedInline):
     one_to_one = True
 
 
-class SiteAdmin(admin.ModelAdmin):
+class PhantomSiteAdmin(admin.ModelAdmin):
     list_display = ('domain', 'name')
     search_fields = ('domain', 'name')
     formfield_overrides = {
@@ -257,7 +257,7 @@ class SiteAdmin(admin.ModelAdmin):
 
 
 admin.site.unregister(Site)
-admin_site.register(Site, SiteAdmin)
+admin_site.register(Site, PhantomSiteAdmin)
 
 
 class UserProfileOneToOne(OneToOneInline):

@@ -13,6 +13,7 @@ __author__ = 'fearless'
 
 from django.conf import settings
 
+
 def get_supported_languages():
     return [x[0] for x in settings.LANGUAGES]
 

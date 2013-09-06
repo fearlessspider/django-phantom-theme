@@ -1,0 +1,41 @@
+{% load i18n %}
+{% load url from future %}
+<div id="quickpost" class="module">
+    <form method="post" action="{% url 'zinnia_entry_quick_post' %}" class="form-horizontal" role="form">
+        <fieldset>
+            <div class="fieldset-wrapper">
+                <h2 id="fieldset-no-1-header" class="">{% trans "Quick publishing" %}</h2>
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_title" class="required control-label col-lg-2">{% trans "Title" %}:</label>
+
+            <div class="col-lg-10">
+                <input name="title" class="form-control" maxlength="255" id="id_title" type="text"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_content" class="required control-label col-lg-2">{% trans "Content" %}:</label>
+
+            <div class="col-lg-10">
+                <textarea id="id_content" rows="7" cols="40" name="content"
+                          class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_tags" class="control-label col-lg-2">{% trans "Tags" %}:</label>
+
+            <div class="col-lg-10">
+                <input name="tags" class="form-control" maxlength="255" id="id_tags" type="text"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+                <input type="submit" value="{% trans "Save as draft" %}" name="save_draft" class="btn btn-info"/>
+                <input type="reset" value="{% trans "Reset" %}" class="btn btn-default"/>
+                <input type="submit" value="{% trans "Publish" %}" class="btn btn-success" name="save"/>
+            </div>
+        </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

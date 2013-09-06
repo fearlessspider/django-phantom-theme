@@ -45,8 +45,11 @@
 													</a>{% endif %}{% if model.url %}
 													<a href="{{ model.url }}" class="btn btn-xs btn-info">
 														{{model.url_text}}&#xa0;<i class="glyphicon {{model.url_icon}}"></i>
+													</a>{% endif %}{% if model.settings_url %}
+													<a href="{{ model.settings_url }}" class="btn btn-xs btn-danger">
+														{% trans "Settings" %}&#xa0;<i class="glyphicon glyphicon-cog"></i>
 													</a>{% endif %}
-												</div>
+                                                </div>
 											</td>
 										</tr>{% endfor %}{% endfor %}
 									</tbody>
