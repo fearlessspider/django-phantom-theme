@@ -14,6 +14,8 @@ __author__ = 'fearless'
 
 
 class AutoCompleteTextInput(TextInput):
+    class Media:
+        js = ('phantom/js/typeahead.js',)
 
     def __init__(self, *args, **kwargs):
         if 'source' in kwargs:
@@ -24,22 +26,20 @@ class AutoCompleteTextInput(TextInput):
         super(AutoCompleteTextInput, self).__init__(*args, **kwargs)
 
     def render(self, name, value, attrs=None):
+        attrs['class'] = 'form-control'
         if self.source:
             attrs['autocomplete'] = 'off'
         output = super(AutoCompleteTextInput, self).render(name, value, attrs)
         if self.source:
-            js = '<script>(function($){$("#%(id)s").typeahead({source: ' \
-                'function(query, process) { $.get("%(source)s", {query: ' \
-                'query},function(data) { return typeof data.results == ' \
-                '"undefined" ? false : process(data.results); }, "json") ' \
-                '}});})(phantom.jQuery);</script>' % {'id': attrs['id'],
-                                                        'source': self.source}
+            js = '<script>(function($){$("#'+attrs["id"]+'").typeahead(\
+            {name: "tags",remote: "'+str(self.source)+\
+                 '?query=%QUERY"});})(phantom.jQuery);</script>'
         return output + mark_safe(js)
 
 
 class BootstrapRadioRenderer(RadioSelect.renderer):
     def render(self):
-        return mark_safe(u'\n'.join([u'%s\n' % unicode(w).replace('<label ', '<label class="radio inline" ') for w in self])+'&#xa0;')
+        return mark_safe(u'\n'.join([u'%s\n' % unicode(w).replace('<label ', '<label class="radio-inline" ') for w in self])+'&#xa0;')
 
 
 class BootstrapCurrencyDecimalWidget(TextInput):
@@ -50,6 +50,7 @@ class BootstrapCurrencyDecimalWidget(TextInput):
 
     def render(self, name, value, attrs=None):
         u"""Render base widget and add bootstrap spans"""
+        attrs['class'] = 'form-control'
         field = super(BootstrapCurrencyDecimalWidget, self).render(name, value, attrs)
         settingObj = None
         if self.user:
@@ -71,6 +72,7 @@ class BootstrapCurrencyDecimalWidget(TextInput):
 class BootstrapPercentageDecimalWidget(TextInput):
     def render(self, name, value, attrs=None):
         u"""Render base widget and add bootstrap spans"""
+        attrs['class'] = 'form-control'
         field = super(BootstrapPercentageDecimalWidget, self).render(name, value, attrs)
         return mark_safe((
             u'<div class="input-group">'
@@ -83,6 +85,7 @@ class BootstrapPercentageDecimalWidget(TextInput):
 class URLThumbWidget(TextInput):
     def render(self, name, value, attrs=None):
         u"""Render base widget and add bootstrap spans"""
+        attrs['class'] = 'form-control'
         field = super(URLThumbWidget, self).render(name, value, attrs)
         return mark_safe((
             u'<div class="input-group">'
@@ -99,6 +102,7 @@ class Select2MultipleWidget(SelectMultiple):
         js = ('phantom/css/select2/select2.min.js',)
 
     def render(self, name, value, attrs=None, choices=()):
+        attrs['class'] = 'form-control'
         result = super(Select2MultipleWidget, self).render(name, value, attrs, choices)
         return result + mark_safe('<script>(function($){'\
                                   '$(\'#%s\').select2();'\
@@ -113,6 +117,7 @@ class Select2Widget(Select):
         js = ('phantom/css/select2/select2.min.js',)
 
     def render(self, name, value, attrs=None, choices=()):
+        attrs['class'] = 'form-control'
         result = super(Select2Widget, self).render(name, value, attrs, choices)
         return result + mark_safe('<script>(function($){'\
                                   '$(\'#%s\').select2(%s);'\
