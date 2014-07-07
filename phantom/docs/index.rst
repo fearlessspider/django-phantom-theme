@@ -57,13 +57,19 @@ $ python setup.py install
 
 or just unzip the github package and copy phantom dir to your project.
 
-Set up
+Requirements
+------------
+
+BabelDjango - http://babel.edgewall.org/wiki/BabelDjango
+
+Set Up
 ------
 
 To use the Django Phantom Theme website you first need to include phantom in your INSTALLED_APPS setting. You also not need to include django.contrib.admin in INSTALLED_APPS and place it after phantom for Django Phantom Theme to work properly. In settings.py.::
 
     INSTALLED_APPS = (
         ...
+        'django.contrib.sites',
         'phantom',
         'django.contrib.admin',
         ...
