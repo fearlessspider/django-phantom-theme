@@ -1,15 +1,14 @@
-from setuptools import setup
+from distutils.core import setup
 
 setup(
     name='django-phantom-theme',
-    version=__import__('phantom').VERSION,
-    description='Phantom is theme for django admin with many widgets, based on Twitter bootstrap 3.x.',
-    author='QQWDG',
-    author_email='support@eggforsale.com',
-    url='http://eggforsale.com',
+    version='1.1',
     packages=['phantom', 'phantom.templatetags'],
-    zip_safe=False,
-    include_package_data=True,
+    url='http://www.eggforsale.com/catalogue/django-phantom-theme_15/',
+    license='Creative Commons Attribution-NonCommercial 3.0',
+    author='EggForSale Platform',
+    author_email='support@eggforsale.com',
+    description='Django Phantom Theme is an admin theme for Django Framework. It allows for registering custom database options and provides a clean and modern web interface. The application is designed to be responsive and adopt to mobile and tablet devices. To achieve this we have used the twitter bootstrap 3.x framework grid.',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Framework :: Django',

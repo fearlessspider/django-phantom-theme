@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from django.views.generic import TemplateView, View
 from django.utils.translation import ugettext as _
-from phantom.forms import ChangeEmailForm, EditProfileForm
+from phantom.forms import ChangeEmailForm, PhantomUserChangeForm
 
 __author__ = 'fearless'
 
@@ -70,7 +70,7 @@ class EmailChangeView(View):
 
 
 class AccountView(View):
-    form_class = EditProfileForm
+    form_class = PhantomUserChangeForm
     template_name = 'admin/auth/user/account.html'
 
     def __init__(self, *args, **kwargs):
@@ -79,10 +79,9 @@ class AccountView(View):
 
     def post(self, request, *args, **kwargs):
         user = request.user
-        profile = user.get_profile()
         user_initial = {'first_name': user.first_name,
                     'last_name': user.last_name}
-        form = self.form_class(request.POST, request.FILES, instance=profile,
+        form = self.form_class(request.POST, request.FILES, instance=user,
                                  initial=user_initial)
         if form.is_valid():
             form.instance.user = self.request.user
@@ -94,10 +93,9 @@ class AccountView(View):
 
     def get(self, request, *args, **kwargs):
         user = request.user
-        profile = user.get_profile()
         user_initial = {'first_name': user.first_name,
                     'last_name': user.last_name}
-        form = self.form_class(instance=profile, initial=user_initial)
+        form = self.form_class(instance=user, initial=user_initial)
         return render(request, self.template_name, {'form':form})
 
     def form_valid(self, form):

@@ -1,10 +1,10 @@
 from django import forms
 from django.contrib.auth.forms import PasswordChangeForm, ReadOnlyPasswordHashField, UserChangeForm, UserCreationForm
-from django.contrib.auth.models import User
+from django.forms import models
+from phantom.models import User
 from django.core.urlresolvers import reverse
 from django.forms.models import BaseInlineFormSet
 from django.utils.translation import ugettext as _
-from phantom.user_utils import get_profile_model
 
 attrs_dict = {'class': 'required'}
 
@@ -89,38 +89,6 @@ class ChangeEmailForm(forms.Form):
         return self.user.user_signup.change_email(self.cleaned_data['email'])
 
 
-class EditProfileForm(forms.ModelForm):
-    """ Base form used for fields that are always required """
-    first_name = forms.CharField(label=_(u'First name'),
-                                 max_length=30,
-                                 required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
-    last_name = forms.CharField(label=_(u'Last name'),
-                                max_length=30,
-                                required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
-
-    def __init__(self, *args, **kw):
-        super(EditProfileForm, self).__init__(*args, **kw)
-        # Put the first and last name at the top
-        new_order = self.fields.keyOrder[:-2]
-        new_order.insert(0, 'first_name')
-        new_order.insert(1, 'last_name')
-        self.fields.keyOrder = new_order
-
-    class Meta:
-        model = get_profile_model()
-        exclude = ['user']
-
-    def save(self, force_insert=False, force_update=False, commit=True):
-        profile = super(EditProfileForm, self).save(commit=commit)
-        # Save first and last name
-        user = profile.user
-        user.first_name = self.cleaned_data['first_name']
-        user.last_name = self.cleaned_data['last_name']
-        user.save()
-
-        return profile
-
-
 class PhantomPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(label=_("Old password"),
                                    widget=forms.PasswordInput(attrs={'class':'form-control'}))
@@ -130,9 +98,9 @@ class PhantomPasswordChangeForm(PasswordChangeForm):
                                     widget=forms.PasswordInput(attrs={'class':'form-control'}))
 
 
-class PhantomUserChangeForm(UserChangeForm):
-    username = forms.RegexField(
-        label=_("Username"), max_length=30, regex=r"^[\w.@+-]+$",
+class PhantomUserChangeForm(models.ModelForm):
+    email = forms.RegexField(
+        label=_("Email"), max_length=30, regex=r"^[\w.@+-]+$",
         help_text=_("Required. 30 characters or fewer. Letters, digits and "
                       "@/./+/-/_ only."),
         error_messages={
@@ -143,13 +111,29 @@ class PhantomUserChangeForm(UserChangeForm):
                     "this user's password, but you can change the password "
                     "using <a href=\"password/\">this form</a>."))
 
+    class Meta:
+        model = User
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(PhantomUserChangeForm, self).__init__(*args, **kwargs)
+        f = self.fields.get('user_permissions', None)
+        if f is not None:
+            f.queryset = f.queryset.select_related('content_type')
+
+    def clean_password(self):
+        # Regardless of what the user provides, return the initial value.
+        # This is done here, rather than on the field, because the
+        # field does not have access to the initial value
+        return self.initial["password"]
+
 
 class PhantomUserCreationForm(UserCreationForm):
     """
     A form that creates a user, with no privileges, from the given username and
     password.
     """
-    username = forms.RegexField(label=_("Username"), max_length=30,
+    email = forms.RegexField(label=_("Email"), max_length=30,
         regex=r'^[\w.@+-]+$',
         help_text=_("Required. 30 characters or fewer. Letters, digits and "
                       "@/./+/-/_ only."),

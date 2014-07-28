@@ -1,6 +1,8 @@
 import json
+from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin, GroupAdmin
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group
 from django.contrib.sites.models import Site
 from django.template.response import TemplateResponse
 from django.utils.translation import ugettext as _
@@ -17,7 +19,6 @@ from django.utils.html import escape, escapejs
 from phantom import admin_site
 from phantom.forms import PopupInlineFormSet, PhantomUserChangeForm, PhantomUserCreationForm
 from phantom.templatetags.phantom_tags import inline_items_for_result
-from phantom.user_utils import get_profile_model
 from phantom.widgets import Select2Widget
 
 __author__ = 'fearless'
@@ -248,34 +249,29 @@ class OneToOneInline(admin.StackedInline):
     one_to_one = True
 
 
-class PhantomSiteAdmin(admin.ModelAdmin):
-    list_display = ('domain', 'name')
-    search_fields = ('domain', 'name')
-    formfield_overrides = {
-        models.CharField: {'widget': TextInput(attrs={'class':'form-control'})},
-    }
+if 'django.contrib.sites' in settings.INSTALLED_APPS:
+    class PhantomSiteAdmin(admin.ModelAdmin):
+        list_display = ('domain', 'name')
+        search_fields = ('domain', 'name')
+        formfield_overrides = {
+            models.CharField: {'widget': TextInput(attrs={'class':'form-control'})},
+        }
 
 
-admin.site.unregister(Site)
-admin_site.register(Site, PhantomSiteAdmin)
+    admin.site.unregister(Site)
+    admin_site.register(Site, PhantomSiteAdmin)
 
 
-class UserProfileOneToOne(OneToOneInline):
-    model = get_profile_model()
-
-
-class PhantomUserAdmin(UserAdmin):
+class PhantomUserAdmin(admin.ModelAdmin):
     form = PhantomUserChangeForm
     add_form = PhantomUserCreationForm
-    inlines = [UserProfileOneToOne]
     formfield_overrides = {
         models.CharField: {'widget': TextInput(attrs={'class':'form-control'})},
         #models.DateTimeField: {'widget': AdminSplitDateTime(attrs={'class':'form-control vDateField'})},
         models.ForeignKey: {'widget': Select2Widget(attrs={'class':'form-control'})},
     }
 
-admin.site.unregister(User)
-admin_site.register(User, PhantomUserAdmin)
+admin_site.register(get_user_model(), PhantomUserAdmin)
 
 
 class PhantomGroupAdmin(GroupAdmin):
@@ -283,5 +279,4 @@ class PhantomGroupAdmin(GroupAdmin):
         models.CharField: {'widget': TextInput(attrs={'class':'form-control'})},
     }
 
-admin.site.unregister(Group)
 admin_site.register(Group, PhantomGroupAdmin)

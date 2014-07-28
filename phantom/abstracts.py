@@ -1,17 +1,11 @@
 # -*- coding: utf-8 -*-
+from django.contrib.auth import models as auth_models
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import ugettext as _
 from phantom.fields import OptionNameField
-from phantom.managers import UserBaseProfileManager
+from phantom.managers import UserManager
 
-try:
-    from pytz import timezone
-except ImportError:
-    timezone = None
-
-babel = __import__('babel', {}, {}, ['core', 'support'])
-Format = babel.support.Format
-Locale = babel.core.Locale
 
 __author__ = 'fearless'
 
@@ -34,10 +28,29 @@ class AbstractOption(models.Model):
         return u'%s.%s' % (self.optionset_label, self.name)
 
 
-class AbstractProfile(models.Model):
-    """ Base model needed for extra profile functionality """
+class AbstractUser(auth_models.AbstractBaseUser,
+                   auth_models.PermissionsMixin):
+    """
+    An abstract base user suitable for use in Oscar projects.
 
-    user = models.OneToOneField('auth.User')
+    This is basically a copy of the core AbstractUser model but without a
+    username field
+    """
+    email = models.EmailField(_('email address'), unique=True)
+    first_name = models.CharField(
+        _('First name'), max_length=255, blank=True)
+    last_name = models.CharField(
+        _('Last name'), max_length=255, blank=True)
+    is_staff = models.BooleanField(
+        _('Staff status'), default=False,
+        help_text=_('Designates whether the user can log into this admin '
+                    'site.'))
+    is_active = models.BooleanField(
+        _('Active'), default=True,
+        help_text=_('Designates whether this user should be treated as '
+                    'active. Unselect this instead of deleting accounts.'))
+    date_joined = models.DateTimeField(_('date joined'),
+                                       default=timezone.now)
 
     # Preferences
     CURRENCY = (
@@ -47,46 +60,19 @@ class AbstractProfile(models.Model):
         ("PLN","PLN")
     )
     currency = models.CharField(choices=CURRENCY, default="USD", max_length=3)
+    objects = UserManager()
 
-    objects = UserBaseProfileManager()
+    USERNAME_FIELD = 'email'
 
     class Meta:
-        """
-        Meta options making the model abstract and defining permissions.
-
-        The model is ``abstract`` because it only supplies basic functionality
-        to a more custom defined model that extends it. This way there is not
-        another join needed.
-
-        We also define custom permissions because we don't know how the model
-        that extends this one is going to be called. So we don't know what
-        permissions to check. For ex. if the user defines a profile model that
-        is called ``MyProfile``, than the permissions would be
-        ``add_myprofile`` etc. We want to be able to always check
-        ``add_profile``, ``change_profile`` etc.
-
-        """
+        verbose_name = _('User')
+        verbose_name_plural = _('Users')
         abstract = True
 
-    def __unicode__(self):
-        return 'Profile of %(username)s' % {'username': self.user.username}
+    def get_full_name(self):
+        full_name = '%s %s' % (self.first_name, self.last_name)
+        return full_name.strip()
 
-    def get_full_name_or_username(self):
-        """
-        Returns the full name of the user, or if none is supplied will return
-        the username.
+    def get_short_name(self):
+        return self.first_name
 
-        :return:
-            ``String`` containing the full name of the user.
-
-        """
-        user = self.user
-        if user.first_name or user.last_name:
-            # We will return this as translated string. Maybe there are some
-            # countries that first display the last name.
-            name = _("%(first_name)s %(last_name)s") % \
-                   {'first_name': user.first_name,
-                    'last_name': user.last_name}
-        else:
-            name = "%(email)s" % {'email': user.email}
-        return name.strip()

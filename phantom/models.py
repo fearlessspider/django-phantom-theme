@@ -1,4 +1,4 @@
-from phantom.abstracts import AbstractOption, AbstractProfile
+from phantom.abstracts import AbstractOption, AbstractUser
 
 __author__ = 'fearless'
 
@@ -7,5 +7,5 @@ class Option(AbstractOption):
     pass
 
 
-class Profile(AbstractProfile):
+class User(AbstractUser):
     pass

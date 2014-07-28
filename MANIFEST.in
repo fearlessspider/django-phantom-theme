@@ -1,0 +1,6 @@
+include README.md
+include LICENSE
+recursive-include docs *
+recursive-include screenshots *
+recursive-include phantom/static *
+recursive-include phantom/templates *
