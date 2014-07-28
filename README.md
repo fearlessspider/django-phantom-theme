@@ -47,10 +47,10 @@ Licence
 =======
 Django Phantom Theme is licensed under Creative Commons Attribution-NonCommercial 3.0 license.
 
-Licence and pricing: http://www.eggforsale.com
+Licence and pricing: http://www.eggforsale.com/catalogue/django-phantom-theme_15/
 
 Support or Contact
 ==================
-Having trouble with Django Phantom Theme? Check out the detail page at http://www.eggforsale.com or contact support@eggforsale.com and we’ll help you sort it out.
+Having trouble with Django Phantom Theme? Check out the detail page at http://www.eggforsale.com/catalogue/django-phantom-theme_15/ or contact support@eggforsale.com and we’ll help you sort it out.
 
 Documentation at http://django-phantom-theme.readthedocs.org/en/latest/
